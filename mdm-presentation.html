@@ -561,6 +561,86 @@
             background: #16a34a;
             transform: scale(1.05);
         }
+
+        .pros-cons {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .pros-cons.active {
+            display: grid;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pros {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .cons {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .pros h4 {
+            color: #22c55e;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .cons h4 {
+            color: #ef4444;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .pros ul, .cons ul {
+            list-style: none;
+            padding: 0;
+            font-size: 0.9em;
+        }
+
+        .pros li::before {
+            content: "✓ ";
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .cons li::before {
+            content: "✗ ";
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .solution-card {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .solution-card::after {
+            content: "Click to view pros & cons";
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.8em;
+            color: #8b949e;
+            opacity: 0.7;
+        }
+
+        .solution-card.expanded::after {
+            content: "Click to hide";
+        }
     </style>
 </head>
 <body>
@@ -758,24 +838,88 @@
                 </div>
             </div>
 
-            <!-- Slide 5: Solution Overview -->
+            <!-- Slide 5: Solution Overview with Interactive Pros/Cons -->
             <div class="slide">
                 <h2>Proposed Solutions Overview</h2>
                 <div class="content-grid">
-                    <div class="card">
+                    <div class="card solution-card" onclick="toggleProsCons('solution1')">
                         <div class="solution-icon">🔷</div>
                         <h3>Solution 1: Entra + Intune</h3>
                         <p>Microsoft's comprehensive enterprise solution combining identity management with device management</p>
+                        <div class="pros-cons" id="solution1">
+                            <div class="pros">
+                                <h4>✓ Pros</h4>
+                                <ul>
+                                    <li>True zero-touch deployment</li>
+                                    <li>Enterprise-grade features</li>
+                                    <li>Unlimited scalability</li>
+                                    <li>Best Windows integration</li>
+                                    <li>Advanced security & compliance</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <h4>✗ Cons</h4>
+                                <ul>
+                                    <li>Highest cost option</li>
+                                    <li>Complex setup & learning curve</li>
+                                    <li>May be overkill for SMBs</li>
+                                    <li>Requires dedicated admin</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card">
+                    <div class="card solution-card" onclick="toggleProsCons('solution2')">
                         <div class="solution-icon">🟢</div>
                         <h3>Solution 2: Entra + Hexnode</h3>
                         <p>Hybrid approach using Microsoft identity with specialized third-party MDM</p>
+                        <div class="pros-cons" id="solution2">
+                            <div class="pros">
+                                <h4>✓ Pros</h4>
+                                <ul>
+                                    <li>Most cost-effective</li>
+                                    <li>Excellent cross-platform support</li>
+                                    <li>Best-of-breed approach</li>
+                                    <li>User-friendly interface</li>
+                                    <li>Strong Mac/Linux management</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <h4>✗ Cons</h4>
+                                <ul>
+                                    <li>No true zero-touch deployment</li>
+                                    <li>Two vendors to manage</li>
+                                    <li>Manual MDM enrollment required</li>
+                                    <li>No Windows Autopilot support</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card">
+                    <div class="card solution-card" onclick="toggleProsCons('solution3')">
                         <div class="solution-icon">📊</div>
                         <h3>Solution 3: M365 Business Premium</h3>
                         <p>All-in-one solution for small to medium businesses with integrated productivity tools</p>
+                        <div class="pros-cons" id="solution3">
+                            <div class="pros">
+                                <h4>✓ Pros</h4>
+                                <ul>
+                                    <li>Single vendor/support</li>
+                                    <li>True zero-touch deployment</li>
+                                    <li>Simple licensing</li>
+                                    <li>Eliminates Office Family overhead</li>
+                                    <li>Consolidated management</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <h4>✗ Cons</h4>
+                                <ul>
+                                    <li>Additional cost if keeping Google Workspace</li>
+                                    <li>Limited to 300 users</li>
+                                    <li>Basic MDM features only</li>
+                                    <li>Less customization</li>
+                                    <li>Limited enterprise compliance</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -856,6 +1000,115 @@
                         <div class="task-item" id="feature4" style="background: rgba(34, 197, 94, 0.3); margin: 8px 0;">✓ Compliance monitored</div>
                         <div class="task-item" id="feature5" style="background: rgba(34, 197, 94, 0.3); margin: 8px 0;">✓ Self-service app store</div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Zero-Touch Deployment Technical Process -->
+            <div class="slide">
+                <h2>Zero-Touch Deployment: Technical Implementation</h2>
+                <p style="text-align: center; color: #8b949e; margin-bottom: 30px;">How vendor hardware IDs connect to our MDM solution</p>
+                
+                <div class="content-grid">
+                    <div class="card" style="border: 2px solid #58a6ff;">
+                        <h3 style="color: #58a6ff;">🪟 Windows Autopilot Process</h3>
+                        <div style="margin: 20px 0;">
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: #58a6ff;"></div>
+                                    <div class="timeline-content">
+                                        <h4>1. Vendor Registration</h4>
+                                        <p>OEM/Vendor uploads device Hardware Hash (unique ID) to Microsoft Partner Center and assigns to our organization</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: #58a6ff;"></div>
+                                    <div class="timeline-content">
+                                        <h4>2. Autopilot Import</h4>
+                                        <p>Hardware ID automatically appears in our Intune Autopilot devices list with our organizational assignment</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: #58a6ff;"></div>
+                                    <div class="timeline-content">
+                                        <h4>3. Profile Assignment</h4>
+                                        <p>We assign Autopilot deployment profile (apps, policies, configurations) to the device before shipping</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: #58a6ff;"></div>
+                                    <div class="timeline-content">
+                                        <h4>4. User Experience</h4>
+                                        <p>Employee powers on → connects to internet → device automatically contacts Autopilot service → applies our configurations</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border: 2px solid #22c55e;">
+                        <h3 style="color: #22c55e;">🍎 Apple Business Manager (ABM) Process</h3>
+                        <div style="margin: 20px 0;">
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: #22c55e;"></div>
+                                    <div class="timeline-content">
+                                        <h4>1. Vendor Enrollment</h4>
+                                        <p>Apple Authorized Reseller automatically enrolls device serial numbers into our ABM account during purchase</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: #22c55e;"></div>
+                                    <div class="timeline-content">
+                                        <h4>2. MDM Assignment</h4>
+                                        <p>ABM automatically assigns devices to our Intune/Hexnode MDM server based on pre-configured rules</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: #22c55e;"></div>
+                                    <div class="timeline-content">
+                                        <h4>3. Profile Preparation</h4>
+                                        <p>We create enrollment profiles (apps, settings, restrictions) and assign to device groups in our MDM</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: #22c55e;"></div>
+                                    <div class="timeline-content">
+                                        <h4>4. Automatic Setup</h4>
+                                        <p>Employee starts Setup Assistant → device contacts ABM → redirects to our MDM → applies configurations automatically</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(88, 166, 255, 0.1); padding: 20px; border-radius: 12px; margin-top: 30px;">
+                    <h3 style="color: #58a6ff; text-align: center; margin-bottom: 15px;">🔧 Vendor Integration Requirements</h3>
+                    <div class="content-grid" style="margin-top: 20px;">
+                        <div>
+                            <h4 style="color: #58a6ff;">For Windows Devices:</h4>
+                            <ul class="feature-list">
+                                <li>Vendor must be Microsoft CSP partner</li>
+                                <li>We provide our Microsoft tenant ID</li>
+                                <li>Vendor uploads Hardware Hash to our tenant</li>
+                                <li>No additional hardware configuration needed</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #22c55e;">For Mac Devices:</h4>
+                            <ul class="feature-list">
+                                <li>Vendor must be Apple Authorized Reseller</li>
+                                <li>We provide our ABM customer number</li>
+                                <li>Purchase must be made through authorized channel</li>
+                                <li>Automatic enrollment on purchase</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(34, 197, 94, 0.1); padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center;">
+                    <p style="font-weight: bold; color: #22c55e;">✅ Result: True zero-touch deployment</p>
+                    <p style="margin-top: 8px;">Employee receives device → powers on → enters company email → everything configures automatically without IT involvement</p>
                 </div>
             </div>
 
@@ -1047,19 +1300,15 @@
                         <p style="margin-top: 20px; font-size: 1.2em;"><strong>Total: ~$26.60/user/month + Family licenses</strong></p>
                         <p style="color: #8b949e;">Good balance with Google Workspace retained</p>
                     </div>
-                    <div class="card" style="border: 2px solid #22c55e;">
-                        <h3 style="color: #22c55e;">M365 Business Premium</h3>
-                        <p><strong>All-inclusive:</strong> $22/user</p>
-                        <p><strong>Replaces:</strong></p>
-                        <ul style="margin-left: 20px; font-size: 0.9em;">
-                            <li>Google Workspace ($14)</li>
-                            <li>Microsoft Family Sharing ($6.45)</li>
-                            <li>Includes Entra P1 ($6)</li>
-                            <li>Includes Basic Intune ($8)</li>
-                            <li>Includes Defender ($3)</li>
-                        </ul>
-                        <p style="margin-top: 20px; font-size: 1.2em; color: #22c55e;"><strong>Total: $22/user/month</strong></p>
-                        <p style="color: #22c55e;">Best value - replaces everything!</p>
+                    <div class="card" style="border: 2px solid #f59e0b;">
+                        <h3 style="color: #f59e0b;">M365 BP + Google Workspace</h3>
+                        <p><strong>Google Workspace Business Standard:</strong> $14/user</p>
+                        <p><strong>M365 Business Premium:</strong> $22/user</p>
+                        <p style="color: #8b949e; font-size: 0.9em;">• Keeps Google Workspace for productivity</p>
+                        <p style="color: #8b949e; font-size: 0.9em;">• Uses M365 BP for MDM + security only</p>
+                        <p style="color: #8b949e; font-size: 0.9em;">• Eliminates Office Family Sharing overhead</p>
+                        <p style="margin-top: 20px; font-size: 1.2em; color: #f59e0b;"><strong>Total: $36/user/month</strong></p>
+                        <p style="color: #f59e0b;">Highest cost but single pane of glass for security</p>
                     </div>
                 </div>
 
@@ -1071,72 +1320,79 @@
                             <th>Current State</th>
                             <th>Entra + Intune</th>
                             <th>Entra + Hexnode</th>
-                            <th>M365 BP</th>
+                            <th>M365 BP + GWS</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style="background: rgba(255, 255, 255, 0.02);">
-                            <td><strong>Google Workspace Business Standard (130 users)</strong></td>
+                            <td><strong>Google Workspace Business Standard (130→150 users)</strong></td>
                             <td>$21,840/year</td>
-                            <td>$25,200/year (150 users)</td>
-                            <td>$25,200/year (150 users)</td>
-                            <td style="color: #22c55e;">Replaced</td>
+                            <td>$25,200/year (retained)</td>
+                            <td>$25,200/year (retained)</td>
+                            <td>$25,200/year (retained)</td>
                         </tr>
                         <tr style="background: rgba(255, 255, 255, 0.02);">
                             <td><strong>Microsoft Family Sharing</strong></td>
                             <td>$903/year (7 licenses)</td>
                             <td>$903/year</td>
                             <td>$903/year</td>
-                            <td style="color: #22c55e;">Replaced</td>
+                            <td style="color: #22c55e;">Eliminated</td>
                         </tr>
                         <tr style="background: rgba(255, 255, 255, 0.02);">
                             <td><strong>Entra P1 (150 users)</strong></td>
                             <td style="color: #ef4444;">Missing</td>
                             <td>$10,800/year</td>
                             <td>$10,800/year</td>
-                            <td style="color: #22c55e;">Included</td>
+                            <td style="color: #22c55e;">Included in M365 BP</td>
                         </tr>
                         <tr style="background: rgba(255, 255, 255, 0.02);">
                             <td><strong>Acronis/Esilo (Device Mgmt + Security)</strong></td>
                             <td style="color: #ef4444;">Unknown cost</td>
                             <td style="color: #ef4444;">Replaced</td>
                             <td style="color: #ef4444;">Replaced</td>
-                            <td style="color: #22c55e;">Replaced</td>
+                            <td style="color: #ef4444;">Replaced</td>
                         </tr>
                         <tr style="background: rgba(255, 255, 255, 0.02);">
                             <td><strong>Device Management (New)</strong></td>
                             <td style="color: #ef4444;">Missing</td>
                             <td>$14,400/year (Intune)</td>
                             <td>$6,480/year (Hexnode)</td>
-                            <td style="color: #22c55e;">Included</td>
+                            <td style="color: #22c55e;">Included in M365 BP</td>
                         </tr>
                         <tr style="background: rgba(255, 255, 255, 0.02);">
                             <td><strong>Security (New - Defender)</strong></td>
                             <td style="color: #ef4444;">Missing</td>
                             <td>$9,000/year</td>
                             <td>$5,400/year</td>
-                            <td style="color: #22c55e;">Included</td>
+                            <td style="color: #22c55e;">Included in M365 BP</td>
+                        </tr>
+                        <tr style="background: rgba(255, 255, 255, 0.02);">
+                            <td><strong>M365 Business Premium (150 users)</strong></td>
+                            <td style="color: #ef4444;">Missing</td>
+                            <td style="color: #ef4444;">Not needed</td>
+                            <td style="color: #ef4444;">Not needed</td>
+                            <td>$39,600/year</td>
                         </tr>
                         <tr style="background: rgba(34, 197, 94, 0.1);">
                             <td><strong>TOTAL ANNUAL COST</strong></td>
                             <td style="color: #ef4444;"><strong>$22,743 + Unknown*</strong></td>
                             <td style="color: #ef4444;"><strong>$60,303</strong></td>
-                            <td style="color: #f59e0b;"><strong>$48,783</strong></td>
-                            <td style="color: #22c55e;"><strong>$39,600</strong></td>
+                            <td style="color: #22c55e;"><strong>$48,783</strong></td>
+                            <td style="color: #f59e0b;"><strong>$64,800</strong></td>
                         </tr>
                         <tr>
                             <td><strong>3-Year Total</strong></td>
                             <td style="color: #ef4444;">$68,229 + Unknown*</td>
                             <td style="color: #ef4444;">$180,909</td>
-                            <td style="color: #f59e0b;">$146,349</td>
-                            <td style="color: #22c55e;">$118,800</td>
+                            <td style="color: #22c55e;">$146,349</td>
+                            <td style="color: #f59e0b;">$194,400</td>
                         </tr>
                         <tr>
-                            <td><strong>vs M365 BP Comparison</strong></td>
+                            <td><strong>vs Entra + Hexnode Comparison</strong></td>
                             <td style="color: #ef4444;">Missing critical MDM/Security features</td>
-                            <td style="color: #ef4444;">-$62,109 more expensive</td>
-                            <td style="color: #ef4444;">-$27,549 more expensive</td>
-                            <td style="color: #22c55e;">Best Value Baseline</td>
+                            <td style="color: #ef4444;">-$34,560 more expensive</td>
+                            <td style="color: #22c55e;">Most Cost-Effective</td>
+                            <td style="color: #f59e0b;">-$48,051 more expensive</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1148,101 +1404,145 @@
             <!-- Recommendation Slide -->
             <div class="slide">
                 <h2>Strategic Recommendations</h2>
-                <div class="recommendation-box">
-                    <h1 style="margin-bottom: 20px;">Dual-Path Strategic Approach</h1>
-                    <p style="font-size: 1.3em; margin-bottom: 30px;">Two optimal solutions for different organizational priorities</p>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h3 style="color: #58a6ff; margin-bottom: 10px;">💡 Click each solution to see key considerations</h3>
+                    <p style="color: #8b949e;">Cost-effective solutions while retaining Google Workspace</p>
                 </div>
-                <div class="content-grid" style="margin-top: 40px;">
-                    <div class="card" style="border: 3px solid #58a6ff;">
-                        <h3 style="color: #58a6ff;">🥇 Option 1: Entra + Intune</h3>
-                        <p style="font-size: 1.1em; margin-bottom: 15px;"><strong>Enterprise-grade capabilities with unlimited scalability</strong></p>
-                        <ul class="feature-list">
-                            <li>Most comprehensive feature set</li>
-                            <li>Enterprise-grade compliance tools</li>
-                            <li>Advanced analytics and reporting</li>
-                            <li>Unlimited scalability</li>
-                            <li>Future-proof investment</li>
-                            <li>Best-in-class Windows management</li>
-                            <li>Advanced conditional access</li>
-                            <li>Retains Google Workspace as primary productivity suite</li>
-                        </ul>
-                        <div style="background: rgba(88, 166, 255, 0.2); padding: 10px; border-radius: 8px; margin-top: 15px;">
-                            <strong>Annual Cost:</strong> $70,303 for 150 users
+                
+                <div class="content-grid">
+                    <!-- Hexnode Solution -->
+                    <div class="card solution-card" style="border: 3px solid #22c55e;" onclick="toggleProsCons('rec-hexnode')">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 3em; margin-bottom: 10px;">🥇</div>
+                            <h3 style="color: #22c55e; margin-bottom: 5px;">Entra + Hexnode</h3>
+                            <p style="color: #22c55e; font-weight: bold;">Most Cost-Effective</p>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div style="text-align: center;">
+                                <p style="color: #22c55e; font-size: 2em; font-weight: bold;">$48,783</p>
+                                <p style="font-size: 0.9em;">Annual Cost</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <p style="color: #22c55e; font-size: 1.5em; font-weight: bold;">$34k</p>
+                                <p style="font-size: 0.9em;">3-Year Savings</p>
+                            </div>
+                        </div>
+
+                        <div class="pros-cons" id="rec-hexnode">
+                            <div style="grid-column: 1 / -1; margin-bottom: 15px;">
+                                <h4 style="color: #22c55e; margin-bottom: 10px;">✓ Choose This If:</h4>
+                                <ul style="list-style: none; padding: 0; font-size: 0.95em;">
+                                    <li style="margin: 8px 0;">💰 Cost optimization is top priority</li>
+                                    <li style="margin: 8px 0;">🍎 Need excellent Mac/Linux management</li>
+                                    <li style="margin: 8px 0;">🚀 Zero-touch deployment not critical</li>
+                                    <li style="margin: 8px 0;">📈 No Microsoft migration plans</li>
+                                    <li style="margin: 8px 0;">🏢 Want to maximize Google Workspace ROI</li>
+                                </ul>
+                            </div>
+                            <div style="grid-column: 1 / -1;">
+                                <h4 style="color: #ef4444; margin-bottom: 10px;">⚠️ Consider This:</h4>
+                                <p style="font-size: 0.9em; color: #ef4444;">Future Microsoft migration would require full MDM platform change</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card" style="border: 3px solid #22c55e;">
-                        <h3 style="color: #22c55e;">🥇 Option 2: M365 Business Premium</h3>
-                        <p style="font-size: 1.1em; margin-bottom: 15px;"><strong>All-in-one solution with maximum simplification</strong></p>
-                        <ul class="feature-list">
-                            <li>Exceptional total value proposition</li>
-                            <li>Replaces both Google Workspace + Office Family</li>
-                            <li>Complete ecosystem integration</li>
-                            <li>Single vendor, single support channel</li>
-                            <li>Individual M365 license control</li>
-                            <li>Built-in Intune, Entra, and Defender</li>
-                            <li>Perfect for our 150-user scale</li>
-                            <li>Immediate productivity gains</li>
-                        </ul>
-                        <div style="background: rgba(34, 197, 94, 0.2); padding: 10px; border-radius: 8px; margin-top: 15px;">
-                            <strong>Annual Cost:</strong> $39,600 for 150 users
+
+                    <!-- Intune Solution -->
+                    <div class="card solution-card" style="border: 3px solid #58a6ff;" onclick="toggleProsCons('rec-intune')">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 3em; margin-bottom: 10px;">🥈</div>
+                            <h3 style="color: #58a6ff; margin-bottom: 5px;">Entra + Intune</h3>
+                            <p style="color: #58a6ff; font-weight: bold;">Future-Proof Investment</p>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div style="text-align: center;">
+                                <p style="color: #58a6ff; font-size: 2em; font-weight: bold;">$60,303</p>
+                                <p style="font-size: 0.9em;">Annual Cost</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <p style="color: #f59e0b; font-size: 1.5em; font-weight: bold;">+$11k</p>
+                                <p style="font-size: 0.9em;">vs Hexnode</p>
+                            </div>
+                        </div>
+
+                        <div class="pros-cons" id="rec-intune">
+                            <div style="grid-column: 1 / -1; margin-bottom: 15px;">
+                                <h4 style="color: #58a6ff; margin-bottom: 10px;">✓ Choose This If:</h4>
+                                <ul style="list-style: none; padding: 0; font-size: 0.95em;">
+                                    <li style="margin: 8px 0;">🎯 Zero-touch deployment essential</li>
+                                    <li style="margin: 8px 0;">🔄 Future Microsoft migration possible</li>
+                                    <li style="margin: 8px 0;">🏢 Enterprise compliance required</li>
+                                    <li style="margin: 8px 0;">📊 Scaling beyond 300 users likely</li>
+                                    <li style="margin: 8px 0;">🛡️ Want native Microsoft integration</li>
+                                </ul>
+                            </div>
+                            <div style="grid-column: 1 / -1;">
+                                <h4 style="color: #22c55e; margin-bottom: 10px;">🎯 Strategic Advantage:</h4>
+                                <p style="font-size: 0.9em; color: #22c55e;">Seamless path to full Microsoft ecosystem - no MDM migration needed!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- M365 BP Solution -->
+                    <div class="card solution-card" style="border: 3px solid #f59e0b;" onclick="toggleProsCons('rec-m365')">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 3em; margin-bottom: 10px;">🥉</div>
+                            <h3 style="color: #f59e0b; margin-bottom: 5px;">M365 Business Premium</h3>
+                            <p style="color: #f59e0b; font-weight: bold;">Single Pane of Glass</p>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div style="text-align: center;">
+                                <p style="color: #f59e0b; font-size: 2em; font-weight: bold;">$64,800</p>
+                                <p style="font-size: 0.9em;">Annual Cost</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <p style="color: #ef4444; font-size: 1.5em; font-weight: bold;">+$16k</p>
+                                <p style="font-size: 0.9em;">vs Hexnode</p>
+                            </div>
+                        </div>
+
+                        <div class="pros-cons" id="rec-m365">
+                            <div style="grid-column: 1 / -1; margin-bottom: 15px;">
+                                <h4 style="color: #f59e0b; margin-bottom: 10px;">✓ Choose This If:</h4>
+                                <ul style="list-style: none; padding: 0; font-size: 0.95em;">
+                                    <li style="margin: 8px 0;">🎯 Single Microsoft dashboard priority</li>
+                                    <li style="margin: 8px 0;">👥 Want to eliminate Office Family overhead</li>
+                                    <li style="margin: 8px 0;">🔧 Prefer single vendor support</li>
+                                    <li style="margin: 8px 0;">📊 Under 300 users permanently</li>
+                                </ul>
+                            </div>
+                            <div style="grid-column: 1 / -1;">
+                                <h4 style="color: #ef4444; margin-bottom: 10px;">⚠️ Trade-offs:</h4>
+                                <p style="font-size: 0.9em; color: #ef4444;">Highest cost + redundant productivity suites + basic MDM features</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div style="background: rgba(34, 197, 94, 0.1); padding: 20px; border-radius: 12px; margin-top: 30px;">
-                    <h3 style="color: #22c55e; text-align: center;">🎯 Strategic Decision Framework</h3>
-                    <div class="content-grid" style="margin-top: 20px;">
-                        <div style="text-align: center;">
-                            <h4 style="color: #58a6ff;">Choose Entra + Intune if:</h4>
-                            <ul style="text-align: left; margin-top: 10px;">
-                                <li>Enterprise features are essential</li>
-                                <li>Unlimited scaling is required</li>
-                                <li>Advanced compliance is critical</li>
-                                <li>Google Workspace retention is preferred</li>
-                            </ul>
-                        </div>
-                        <div style="text-align: center;">
-                            <h4 style="color: #22c55e;">Choose M365 Business Premium if:</h4>
-                            <ul style="text-align: left; margin-top: 10px;">
-                                <li>Cost optimization is priority</li>
-                                <li>Ecosystem simplification desired</li>
-                                <li>Under 300 users (current fit)</li>
-                                <li>Vendor consolidation preferred</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div style="background: rgba(88, 166, 255, 0.1); padding: 25px; border-radius: 12px; margin-top: 20px;">
-                    <h3 style="color: #58a6ff; text-align: center; margin-bottom: 20px;">💰 Cost-Effectiveness with Maximum Visibility & Control</h3>
-                    <p style="text-align: center; margin-bottom: 20px; font-size: 1.1em;"><strong>For organizations prioritizing cost optimization while maintaining granular account and device management:</strong></p>
+
+                <!-- Visual Migration Path -->
+                <div style="background: rgba(88, 166, 255, 0.1); padding: 20px; border-radius: 12px; margin-top: 30px;">
+                    <h3 style="color: #58a6ff; text-align: center; margin-bottom: 20px;">🔄 Future Microsoft Migration Paths</h3>
                     
-                    <div class="content-grid" style="margin-top: 20px;">
-                        <div class="card" style="border: 2px solid #58a6ff; background: rgba(88, 166, 255, 0.1);">
-                            <h4 style="color: #58a6ff;">🎯 Entra + Intune</h4>
-                            <ul class="feature-list" style="font-size: 0.95em;">
-                                <li>Enterprise-grade visibility and control</li>
-                                <li>Retains Google Workspace investment</li>
-                                <li>Advanced device management capabilities</li>
-                                <li>Comprehensive security and compliance</li>
-                                <li>Future-proof unlimited scalability</li>
-                            </ul>
-                            <p style="margin-top: 10px; color: #58a6ff; font-weight: bold;">Best for: Enterprise requirements + cost consciousness</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div style="text-align: center;">
+                            <div style="background: rgba(34, 197, 94, 0.2); padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                                <h4 style="color: #22c55e;">Hexnode Path</h4>
+                                <p style="font-size: 2em; margin: 10px 0;">📱➡️🔄➡️🏢</p>
+                                <p style="font-size: 0.9em;">Hexnode → Migration Work → Microsoft</p>
+                            </div>
+                            <p style="color: #ef4444; font-size: 0.9em;">Requires full MDM platform change</p>
                         </div>
-                        <div class="card" style="border: 2px solid #22c55e; background: rgba(34, 197, 94, 0.1);">
-                            <h4 style="color: #22c55e;">🎯 Entra + Hexnode</h4>
-                            <ul class="feature-list" style="font-size: 0.95em;">
-                                <li>Most cost-effective with full capabilities</li>
-                                <li>Excellent cross-platform device management</li>
-                                <li>Retains Google Workspace investment</li>
-                                <li>Strong granular control features</li>
-                                <li>Best value for current requirements</li>
-                            </ul>
-                            <p style="margin-top: 10px; color: #22c55e; font-weight: bold;">Best for: Maximum cost savings + full control</p>
+                        
+                        <div style="text-align: center;">
+                            <div style="background: rgba(88, 166, 255, 0.2); padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                                <h4 style="color: #58a6ff;">Intune Path</h4>
+                                <p style="font-size: 2em; margin: 10px 0;">📱➡️✅➡️🏢</p>
+                                <p style="font-size: 0.9em;">Intune → Already Ready → Microsoft</p>
+                            </div>
+                            <p style="color: #22c55e; font-size: 0.9em;">Seamless transition, minimal work</p>
                         </div>
-                    </div>
-                    
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center;">
-                        <p style="font-weight: bold;">🏆 Recommendation: Choose Entra + Intune or Entra + Hexnode as your go-to solutions</p>
-                        <p style="margin-top: 8px;">These options provide all required capabilities with granular management controls while preserving your existing Google Workspace investment and delivering superior cost-effectiveness.</p>
                     </div>
                 </div>
             </div>
@@ -1302,7 +1602,7 @@
 
         <div class="slide-controls">
             <div class="slide-counter">
-                <span id="current-slide">1</span> / <span id="total-slides">11</span>
+                <span id="current-slide">1</span> / <span id="total-slides">13</span>
             </div>
             <div class="nav-buttons">
                 <button id="prev-btn" onclick="changeSlide(-1)">← Previous</button>
@@ -1335,6 +1635,27 @@
             showSlide(currentSlide);
         }
 
+        // FIXED: Added missing toggleProsCons function
+        function toggleProsCons(solutionId) {
+            const prosConsElement = document.getElementById(solutionId);
+            const cardElement = prosConsElement.closest('.solution-card');
+            
+            if (prosConsElement.classList.contains('active')) {
+                prosConsElement.classList.remove('active');
+                cardElement.classList.remove('expanded');
+            } else {
+                // Hide all other pros/cons first
+                document.querySelectorAll('.pros-cons.active').forEach(el => {
+                    el.classList.remove('active');
+                    el.closest('.solution-card').classList.remove('expanded');
+                });
+                
+                // Show the clicked one
+                prosConsElement.classList.add('active');
+                cardElement.classList.add('expanded');
+            }
+        }
+
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') changeSlide(-1);
@@ -1349,65 +1670,83 @@
             }
         });
 
-        // Current State Animation
+        // FIXED: Current State Animation with better element selection and timing
         function startCurrentStateAnimation() {
-            // Reset all elements
-            const elements = document.querySelectorAll('#current-workflow .workflow-stage, #current-workflow .arrow, #current-workflow .pain-point-bubble, #current-workflow .task-item');
-            elements.forEach(el => {
+            // Reset all elements first
+            const workflowElements = document.querySelectorAll('#current-workflow .workflow-stage, #current-workflow .arrow, #current-workflow .pain-point-bubble, #current-workflow .task-item, #current-workflow .stage-label');
+            workflowElements.forEach(el => {
                 el.classList.remove('active', 'show');
             });
 
-            // Animation sequence
-            setTimeout(() => document.getElementById('stage1').classList.add('active'), 500);
-            setTimeout(() => document.getElementById('arrow1').classList.add('show'), 1000);
-            setTimeout(() => document.getElementById('stage2').classList.add('active'), 1500);
-            setTimeout(() => document.getElementById('pain1').classList.add('show'), 2000);
-            setTimeout(() => document.getElementById('pain5').classList.add('show'), 2200);
-            setTimeout(() => document.getElementById('arrow2').classList.add('show'), 2500);
-            setTimeout(() => document.getElementById('stage3').classList.add('active'), 3000);
-            setTimeout(() => document.getElementById('pain4').classList.add('show'), 3500);
-            setTimeout(() => document.getElementById('pain6').classList.add('show'), 3700);
-            setTimeout(() => document.getElementById('tasks').classList.add('active'), 4000);
-            setTimeout(() => document.getElementById('task1').classList.add('show'), 4200);
-            setTimeout(() => document.getElementById('task2').classList.add('show'), 4400);
-            setTimeout(() => document.getElementById('task3').classList.add('show'), 4600);
-            setTimeout(() => document.getElementById('task4').classList.add('show'), 4800);
-            setTimeout(() => document.getElementById('task5').classList.add('show'), 5000);
-            setTimeout(() => document.getElementById('pain2').classList.add('show'), 5200);
-            setTimeout(() => document.getElementById('pain3').classList.add('show'), 5400);
-            setTimeout(() => document.getElementById('backup-scenario').classList.add('active'), 5800);
-            setTimeout(() => document.getElementById('pain7').classList.add('show'), 6000);
-            setTimeout(() => document.getElementById('final-laptop').classList.add('active'), 6500);
+            // Animation sequence with proper timing
+            const timeline = [
+                { delay: 500, action: () => {
+                    document.getElementById('stage1').classList.add('active');
+                    document.querySelector('#stage1 .stage-label').classList.add('show');
+                }},
+                { delay: 1000, action: () => document.getElementById('arrow1').classList.add('show') },
+                { delay: 1500, action: () => document.getElementById('stage2').classList.add('active') },
+                { delay: 2000, action: () => document.getElementById('pain1').classList.add('show') },
+                { delay: 2200, action: () => document.getElementById('pain5').classList.add('show') },
+                { delay: 2500, action: () => document.getElementById('arrow2').classList.add('show') },
+                { delay: 3000, action: () => document.getElementById('stage3').classList.add('active') },
+                { delay: 3500, action: () => document.getElementById('pain4').classList.add('show') },
+                { delay: 3700, action: () => document.getElementById('pain6').classList.add('show') },
+                { delay: 4000, action: () => document.getElementById('tasks').classList.add('active') },
+                { delay: 4200, action: () => document.getElementById('task1').classList.add('show') },
+                { delay: 4400, action: () => document.getElementById('task2').classList.add('show') },
+                { delay: 4600, action: () => document.getElementById('task3').classList.add('show') },
+                { delay: 4800, action: () => document.getElementById('task4').classList.add('show') },
+                { delay: 5000, action: () => document.getElementById('task5').classList.add('show') },
+                { delay: 5200, action: () => document.getElementById('pain2').classList.add('show') },
+                { delay: 5400, action: () => document.getElementById('pain3').classList.add('show') },
+                { delay: 5800, action: () => document.getElementById('backup-scenario').classList.add('active') },
+                { delay: 6000, action: () => document.getElementById('pain7').classList.add('show') },
+                { delay: 6500, action: () => document.getElementById('final-laptop').classList.add('active') }
+            ];
+
+            timeline.forEach(item => {
+                setTimeout(item.action, item.delay);
+            });
         }
 
-        // Future State Animation
+        // FIXED: Future State Animation with better element selection and timing
         function startFutureStateAnimation() {
-            // Reset all elements
-            const elements = document.querySelectorAll('#future-workflow .workflow-stage, #future-workflow .cloud-container, #future-workflow .vendor-box, #future-workflow .arrow, #future-workflow .auto-setup, #future-workflow .checkmark, #future-workflow .success-bubble, #future-workflow .task-item');
-            elements.forEach(el => {
+            // Reset all elements first
+            const futureElements = document.querySelectorAll('#future-workflow .workflow-stage, #future-workflow .cloud-container, #future-workflow .vendor-box, #future-workflow .arrow, #future-workflow .auto-setup, #future-workflow .checkmark, #future-workflow .success-bubble, #future-workflow .task-item, #future-workflow .stage-label');
+            futureElements.forEach(el => {
                 el.classList.remove('active', 'show');
             });
 
-            // Animation sequence
-            setTimeout(() => document.getElementById('cloud').classList.add('show'), 500);
-            setTimeout(() => document.getElementById('future-stage1').classList.add('active'), 1000);
-            setTimeout(() => document.getElementById('vendor').classList.add('show'), 1500);
-            setTimeout(() => document.getElementById('future-arrow1').classList.add('show'), 2000);
-            setTimeout(() => document.getElementById('future-stage2').classList.add('active'), 2500);
-            setTimeout(() => document.getElementById('auto-setup').classList.add('show'), 3000);
-            setTimeout(() => document.getElementById('check1').classList.add('show'), 3500);
-            setTimeout(() => document.getElementById('success1').classList.add('show'), 4000);
-            setTimeout(() => document.getElementById('success2').classList.add('show'), 4200);
-            setTimeout(() => document.getElementById('success4').classList.add('show'), 4400);
-            setTimeout(() => document.getElementById('success5').classList.add('show'), 4600);
-            setTimeout(() => document.getElementById('success6').classList.add('show'), 4800);
-            setTimeout(() => document.getElementById('features').classList.add('active'), 5000);
-            setTimeout(() => document.getElementById('feature1').classList.add('show'), 5200);
-            setTimeout(() => document.getElementById('feature2').classList.add('show'), 5400);
-            setTimeout(() => document.getElementById('feature3').classList.add('show'), 5600);
-            setTimeout(() => document.getElementById('feature4').classList.add('show'), 5800);
-            setTimeout(() => document.getElementById('feature5').classList.add('show'), 6000);
-            setTimeout(() => document.getElementById('success3').classList.add('show'), 6300);
+            // Animation sequence with proper timing
+            const timeline = [
+                { delay: 500, action: () => document.getElementById('cloud').classList.add('show') },
+                { delay: 1000, action: () => {
+                    document.getElementById('future-stage1').classList.add('active');
+                    document.querySelector('#future-stage1 .stage-label').classList.add('show');
+                }},
+                { delay: 1500, action: () => document.getElementById('vendor').classList.add('show') },
+                { delay: 2000, action: () => document.getElementById('future-arrow1').classList.add('show') },
+                { delay: 2500, action: () => document.getElementById('future-stage2').classList.add('active') },
+                { delay: 3000, action: () => document.getElementById('auto-setup').classList.add('show') },
+                { delay: 3500, action: () => document.getElementById('check1').classList.add('show') },
+                { delay: 4000, action: () => document.getElementById('success1').classList.add('show') },
+                { delay: 4200, action: () => document.getElementById('success2').classList.add('show') },
+                { delay: 4400, action: () => document.getElementById('success4').classList.add('show') },
+                { delay: 4600, action: () => document.getElementById('success5').classList.add('show') },
+                { delay: 4800, action: () => document.getElementById('success6').classList.add('show') },
+                { delay: 5000, action: () => document.getElementById('features').classList.add('active') },
+                { delay: 5200, action: () => document.getElementById('feature1').classList.add('show') },
+                { delay: 5400, action: () => document.getElementById('feature2').classList.add('show') },
+                { delay: 5600, action: () => document.getElementById('feature3').classList.add('show') },
+                { delay: 5800, action: () => document.getElementById('feature4').classList.add('show') },
+                { delay: 6000, action: () => document.getElementById('feature5').classList.add('show') },
+                { delay: 6300, action: () => document.getElementById('success3').classList.add('show') }
+            ];
+
+            timeline.forEach(item => {
+                setTimeout(item.action, item.delay);
+            });
         }
 
         // Initialize
