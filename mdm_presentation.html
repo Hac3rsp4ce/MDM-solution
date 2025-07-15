@@ -813,6 +813,67 @@
             left: 0;
             color: #58a6ff;
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            margin: 50px auto;
+            padding: 40px;
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -1203,115 +1264,6 @@
                     <button class="zero-touch-button" onclick="showZeroTouchSlide()">
                         🚀 What is Zero-Touch Deployment?
                     </button>
-                </div>
-            </div>
-
-            <!-- Hidden Zero-Touch Deployment Technical Process -->
-            <div class="slide" id="zero-touch-slide" style="display: none;">
-                <h2>Zero-Touch Deployment: Technical Magic Revealed</h2>
-                <p style="text-align: center; color: #8b949e; margin-bottom: 30px;">How Autopilot & ABM enable true hands-off deployment</p>
-                
-                <div class="content-grid">
-                    <div class="card" style="border: 2px solid #58a6ff;">
-                        <h3 style="color: #58a6ff;">🪟 Windows Autopilot Process</h3>
-                        <div style="margin: 20px 0;">
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="background: #58a6ff;"></div>
-                                    <div class="timeline-content">
-                                        <h4>1. Vendor Registration</h4>
-                                        <p>OEM/Vendor uploads device Hardware Hash (unique ID) to Microsoft Partner Center and assigns to our organization</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="background: #58a6ff;"></div>
-                                    <div class="timeline-content">
-                                        <h4>2. Autopilot Import</h4>
-                                        <p>Hardware ID automatically appears in our Intune Autopilot devices list with our organizational assignment</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="background: #58a6ff;"></div>
-                                    <div class="timeline-content">
-                                        <h4>3. Profile Assignment</h4>
-                                        <p>We assign Autopilot deployment profile (apps, policies, configurations) to the device before shipping</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="background: #58a6ff;"></div>
-                                    <div class="timeline-content">
-                                        <h4>4. User Experience</h4>
-                                        <p>Employee powers on → connects to internet → device automatically contacts Autopilot service → applies our configurations</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" style="border: 2px solid #22c55e;">
-                        <h3 style="color: #22c55e;">🍎 Apple Business Manager (ABM) Process</h3>
-                        <div style="margin: 20px 0;">
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="background: #22c55e;"></div>
-                                    <div class="timeline-content">
-                                        <h4>1. Vendor Enrollment</h4>
-                                        <p>Apple Authorized Reseller automatically enrolls device serial numbers into our ABM account during purchase</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="background: #22c55e;"></div>
-                                    <div class="timeline-content">
-                                        <h4>2. MDM Assignment</h4>
-                                        <p>ABM automatically assigns devices to our Intune/Hexnode MDM server based on pre-configured rules</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="background: #22c55e;"></div>
-                                    <div class="timeline-content">
-                                        <h4>3. Profile Preparation</h4>
-                                        <p>We create enrollment profiles (apps, settings, restrictions) and assign to device groups in our MDM</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot" style="background: #22c55e;"></div>
-                                    <div class="timeline-content">
-                                        <h4>4. Automatic Setup</h4>
-                                        <p>Employee starts Setup Assistant → device contacts ABM → redirects to our MDM → applies configurations automatically</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="background: rgba(88, 166, 255, 0.1); padding: 20px; border-radius: 12px; margin-top: 30px;">
-                    <h3 style="color: #58a6ff; text-align: center; margin-bottom: 15px;">🔧 Vendor Integration Requirements</h3>
-                    <div class="content-grid" style="margin-top: 20px;">
-                        <div>
-                            <h4 style="color: #58a6ff;">For Windows Devices:</h4>
-                            <ul class="feature-list">
-                                <li>Vendor must be Microsoft CSP partner</li>
-                                <li>We provide our Microsoft tenant ID</li>
-                                <li>Vendor uploads Hardware Hash to our tenant</li>
-                                <li>No additional hardware configuration needed</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 style="color: #22c55e;">For Mac Devices:</h4>
-                            <ul class="feature-list">
-                                <li>Vendor must be Apple Authorized Reseller</li>
-                                <li>We provide our ABM customer number</li>
-                                <li>Purchase must be made through authorized channel</li>
-                                <li>Automatic enrollment on purchase</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="background: rgba(34, 197, 94, 0.1); padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center;">
-                    <p style="font-weight: bold; color: #22c55e;">✅ Result: True zero-touch deployment</p>
-                    <p style="margin-top: 8px;">Employee receives device → powers on → enters company email → everything configures automatically without IT involvement</p>
                 </div>
             </div>
 
@@ -1810,7 +1762,7 @@
 
         <div class="slide-controls">
             <div class="slide-counter">
-                <span id="current-slide">1</span> / <span id="total-slides">13</span>
+                <span id="current-slide">1</span> / <span id="total-slides">12</span>
             </div>
             <div class="nav-buttons">
                 <button id="prev-btn" onclick="changeSlide(-1)">← Previous</button>
@@ -1828,6 +1780,118 @@
             <button class="zero-touch-button" onclick="showZeroTouchSlide()">
                 🚀 What is Zero-Touch Deployment?
             </button>
+        </div>
+    </div>
+
+    <!-- Zero-Touch Modal -->
+    <div class="modal-overlay" id="zero-touch-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeZeroTouchModal()">×</button>
+            <h2>Zero-Touch Deployment: Technical Magic Revealed</h2>
+            <p style="text-align: center; color: #c9d1d9; margin-bottom: 30px;">How Autopilot & ABM enable true hands-off deployment</p>
+            
+            <div class="content-grid">
+                <div class="card" style="border: 2px solid #58a6ff;">
+                    <h3 style="color: #58a6ff;">🪟 Windows Autopilot Process</h3>
+                    <div style="margin: 20px 0;">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: #58a6ff;"></div>
+                                <div class="timeline-content">
+                                    <h4>1. Vendor Registration</h4>
+                                    <p>OEM/Vendor uploads device Hardware Hash (unique ID) to Microsoft Partner Center and assigns to our organization</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: #58a6ff;"></div>
+                                <div class="timeline-content">
+                                    <h4>2. Autopilot Import</h4>
+                                    <p>Hardware ID automatically appears in our Intune Autopilot devices list with our organizational assignment</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: #58a6ff;"></div>
+                                <div class="timeline-content">
+                                    <h4>3. Profile Assignment</h4>
+                                    <p>We assign Autopilot deployment profile (apps, policies, configurations) to the device before shipping</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: #58a6ff;"></div>
+                                <div class="timeline-content">
+                                    <h4>4. User Experience</h4>
+                                    <p>Employee powers on → connects to internet → device automatically contacts Autopilot service → applies our configurations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="border: 2px solid #22c55e;">
+                    <h3 style="color: #22c55e;">🍎 Apple Business Manager (ABM) Process</h3>
+                    <div style="margin: 20px 0;">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: #22c55e;"></div>
+                                <div class="timeline-content">
+                                    <h4>1. Vendor Enrollment</h4>
+                                    <p>Apple Authorized Reseller automatically enrolls device serial numbers into our ABM account during purchase</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: #22c55e;"></div>
+                                <div class="timeline-content">
+                                    <h4>2. MDM Assignment</h4>
+                                    <p>ABM automatically assigns devices to our Intune/Hexnode MDM server based on pre-configured rules</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: #22c55e;"></div>
+                                <div class="timeline-content">
+                                    <h4>3. Profile Preparation</h4>
+                                    <p>We create enrollment profiles (apps, settings, restrictions) and assign to device groups in our MDM</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: #22c55e;"></div>
+                                <div class="timeline-content">
+                                    <h4>4. Automatic Setup</h4>
+                                    <p>Employee starts Setup Assistant → device contacts ABM → redirects to our MDM → applies configurations automatically</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(88, 166, 255, 0.1); padding: 20px; border-radius: 12px; margin-top: 30px;">
+                <h3 style="color: #58a6ff; text-align: center; margin-bottom: 15px;">🔧 Vendor Integration Requirements</h3>
+                <div class="content-grid" style="margin-top: 20px;">
+                    <div>
+                        <h4 style="color: #58a6ff;">For Windows Devices:</h4>
+                        <ul class="feature-list">
+                            <li>Vendor must be Microsoft CSP partner</li>
+                            <li>We provide our Microsoft tenant ID</li>
+                            <li>Vendor uploads Hardware Hash to our tenant</li>
+                            <li>No additional hardware configuration needed</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #22c55e;">For Mac Devices:</h4>
+                        <ul class="feature-list">
+                            <li>Vendor must be Apple Authorized Reseller</li>
+                            <li>We provide our ABM customer number</li>
+                            <li>Purchase must be made through authorized channel</li>
+                            <li>Automatic enrollment on purchase</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(34, 197, 94, 0.1); padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center;">
+                <p style="font-weight: bold; color: #22c55e;">✅ Result: True zero-touch deployment</p>
+                <p style="margin-top: 8px;">Employee receives device → powers on → enters company email → everything configures automatically without IT involvement</p>
+            </div>
         </div>
     </div>
 
@@ -1873,7 +1937,7 @@
 
             // Show Zero-Touch teaser on Future State slide
             const zeroTouchTeaser = document.getElementById('zero-touch-teaser');
-            if (index === 6) { // Future State slide index
+            if (index === 5) { // Future State slide index
                 setTimeout(() => {
                     zeroTouchTeaser.classList.add('active');
                 }, 2000);
@@ -1959,23 +2023,25 @@
         }
 
         function showZeroTouchSlide() {
-            // Find and show the zero-touch slide
-            const zeroTouchSlide = document.getElementById('zero-touch-slide');
-            if (zeroTouchSlide) {
-                // Hide current slide
-                slides[currentSlide].classList.remove('active');
-                
-                // Show zero-touch slide
-                zeroTouchSlide.style.display = 'flex';
-                zeroTouchSlide.classList.add('active');
-                
-                // Update slide counter
-                document.getElementById('current-slide').textContent = 'Special';
-                
-                // Hide teaser button
-                document.getElementById('zero-touch-teaser').classList.remove('active');
-            }
+            // Show the modal
+            const modal = document.getElementById('zero-touch-modal');
+            modal.classList.add('active');
+            
+            // Hide teaser button
+            document.getElementById('zero-touch-teaser').classList.remove('active');
         }
+
+        function closeZeroTouchModal() {
+            const modal = document.getElementById('zero-touch-modal');
+            modal.classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('zero-touch-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeZeroTouchModal();
+            }
+        });
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
@@ -1994,6 +2060,11 @@
             if (e.key === ' ' && document.getElementById('reveal-controls').classList.contains('active')) {
                 e.preventDefault();
                 revealNext();
+            }
+            
+            // ESC to close modal
+            if (e.key === 'Escape') {
+                closeZeroTouchModal();
             }
         });
 
