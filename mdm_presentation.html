@@ -1036,7 +1036,7 @@
                         </ul>
                     </div>
                     <div class="card progressive-content" data-reveal="2">
-                        <h3>📱 Mobile Device Management</h3>
+                        <h3>📱Device Management (MDM)</h3>
                         <ul class="feature-list">
                             <li>Remote device configuration</li>
                             <li>Application deployment automation</li>
@@ -1767,9 +1767,9 @@
                         </ul>
                     </div>
                     
-                    <div class="migration-point" style="background: rgba(239, 68, 68, 0.1); border-left-color: #ef4444;">
-                        <h4 style="color: #ef4444;">CFO Consideration</h4>
-                        <p>Hexnode to Microsoft migration would cost approximately $20k-30k in professional services and require 2-3 months of transition time. This should be factored into any future Microsoft migration decision.</p>
+                    <div class="migration-point" style="background: rgba(88, 166, 255, 0.1); border-left-color: #58a6ff;">
+                        <h4 style="color: #58a6ff;">Strategic Investment Option</h4>
+                        <p>While Hexnode saves $34k over 3 years, choosing Intune now eliminates future migration costs ($20-30k) and disruption if moving to Microsoft. Consider Intune as "future insurance" - paying $11k more annually to avoid potential $30k migration plus 3 months of transition chaos later.</p>
                     </div>
                 </div>
             </div>
@@ -1847,13 +1847,6 @@
         <!-- Progressive Reveal Controls -->
         <div class="reveal-controls" id="reveal-controls">
             <button class="reveal-button" id="reveal-button" onclick="revealNext()">Show Next →</button>
-        </div>
-
-        <!-- Zero-Touch Teaser -->
-        <div class="zero-touch-teaser" id="zero-touch-teaser">
-            <button class="zero-touch-button" onclick="showZeroTouchSlide()">
-                🚀 What is Zero-Touch Deployment?
-            </button>
         </div>
     </div>
 
@@ -2090,9 +2083,6 @@
             // Show the modal
             const modal = document.getElementById('zero-touch-modal');
             modal.classList.add('active');
-            
-            // Hide teaser button
-            document.getElementById('zero-touch-teaser').classList.remove('active');
         }
 
         function closeZeroTouchModal() {
